@@ -3,7 +3,8 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://conduit.productionready.io/api';
+const API_ROOT = 'http://www.mocky.io/v2/5d8de422310000b19d2b517a​';
+const API_FAILURE = 'http://www.mocky.io/v2/5d8de441310000a2612b517c​';
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
@@ -24,6 +25,11 @@ const requests = {
     superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
+};
+
+const Payment = {
+  sendPayment: (data) =>
+    requests.post('​​', data)
 };
 
 const Auth = {
@@ -92,5 +98,6 @@ export default {
   Comments,
   Profile,
   Tags,
+  Payment,
   setToken: _token => { token = _token; }
 };

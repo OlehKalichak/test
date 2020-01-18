@@ -14,17 +14,41 @@ import {
   PROFILE_FAVORITES_PAGE_UNLOADED,
   SETTINGS_PAGE_UNLOADED,
   LOGIN_PAGE_UNLOADED,
-  REGISTER_PAGE_UNLOADED
+  REGISTER_PAGE_UNLOADED,
+  PAYMENT_REQUEST,
+  PAYMENT_SUCCESS,
+  PAYMENT_FAILURE
 } from '../constants/actionTypes';
 
 const defaultState = {
   appName: 'Conduit',
   token: null,
-  viewChangeCounter: 0
+  viewChangeCounter: 0,
+  loading: false,
+  error: null,
+  payment: null
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case PAYMENT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      }
+    case PAYMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        payment: action.payload
+      }
+    case PAYMENT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
     case APP_LOAD:
       return {
         ...state,
